@@ -16,7 +16,6 @@ RUN curl -fsSL https://github.com/ocaml-dune/dune-bin-install/releases/download/
 WORKDIR /app
 
 COPY dune-project dune-project
-COPY dune.lock/ dune.lock/
 
 RUN mkdir -p src
 RUN printf '%s\n' \
@@ -29,6 +28,7 @@ RUN printf '%s\n' \
 RUN printf '%s\n' 'let () = ()' > src/dummy.ml
 
 ENV TMPDIR=/app
+RUN dune pkg lock
 RUN dune build --profile=release
 
 COPY . .

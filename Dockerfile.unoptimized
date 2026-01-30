@@ -17,4 +17,5 @@ WORKDIR /app
 COPY . .
 
 ENV TMPDIR=/app
+RUN dune pkg lock
 RUN dune build --profile=release
