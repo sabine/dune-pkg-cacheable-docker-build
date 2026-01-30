@@ -1,0 +1,4 @@
+(executable
+ (name site)
+ (modules site)
+ (flags (:standard -w -33-27)))

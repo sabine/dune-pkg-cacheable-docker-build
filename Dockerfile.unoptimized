@@ -1,0 +1,20 @@
+FROM debian:bookworm AS builder
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+  build-essential \
+  ca-certificates \
+  curl \
+  git \
+  m4 \
+  pkg-config \
+  unzip \
+  xz-utils \
+  && rm -rf /var/lib/apt/lists/*
+
+RUN curl -fsSL https://github.com/ocaml-dune/dune-bin-install/releases/download/v3/install.sh | sh -s -- 3.20.2 --install-root /usr --no-update-shell-config
+
+WORKDIR /app
+COPY . .
+
+ENV TMPDIR=/app
+RUN dune build --profile=release
