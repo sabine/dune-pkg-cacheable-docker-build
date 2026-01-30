@@ -1,1 +1,1 @@
-let () = print_endline "Hello again"
+let () = print_endline "Dune pkg Docker cache benchmark"
