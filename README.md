@@ -4,6 +4,8 @@ This repo is a minimal OCaml project that demonstrates a cacheable Docker layer 
 It is intentionally tiny, but still builds the OCaml compiler and packages so you can see the Docker layer
 cache savings.
 
+Blog post: https://makerprism.com/en/blog/a-practical-docker-cache-pattern-for-dune-package-management/
+
 This is how I personally handle it. It is not a recommendation from the Dune team. I would love feedback
 or to hear how others handle this.
 
