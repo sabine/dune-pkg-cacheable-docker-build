@@ -13,7 +13,7 @@ or to hear how others handle this.
 
 - `Dockerfile.unoptimized`: copies the full repo first, so any source change invalidates the layer that builds
   the OCaml compiler and all dependencies.
-- `Dockerfile.optimized`: copies only `dune-project`, runs `dune pkg lock`, and builds a dummy target first,
+- `Dockerfile.optimized`: copies only `dune-project`, runs `dune pkg lock`, and runs `dune build @pkg-install`,
   so the expensive compiler + dependency layer is cached. The real source code is copied afterward.
 
 ## Run the benchmark
@@ -43,10 +43,10 @@ Architecture:
 
 Timings (local Docker, BuildKit enabled):
 
-- Average warm rebuild (3 runs, after cache warm-up): unoptimized 118.593s, optimized 1.907s
+- Average warm rebuild (2 runs with actual source changes): unoptimized 109.7s, optimized 2.2s
 
 ## Notes
 
-- The cache boundary is the `dune pkg lock` + dummy build layer.
+- The cache boundary is the `dune pkg lock` + `dune build @pkg-install` layer.
 - `dune.lock` is generated during the Docker build and is not checked in.
 - This is Docker layer caching, not the Dune cache.

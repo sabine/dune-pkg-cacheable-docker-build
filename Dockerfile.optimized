@@ -17,19 +17,9 @@ WORKDIR /app
 
 COPY dune-project dune-project
 
-RUN mkdir -p src
-RUN printf '%s\n' \
-  '(executable' \
-  ' (name dummy)' \
-  ' (modules dummy)' \
-  ' (flags (:standard -w -33-27))' \
-  ')' \
-  > src/dune
-RUN printf '%s\n' 'let () = ()' > src/dummy.ml
-
 ENV TMPDIR=/app
 RUN dune pkg lock
-RUN dune build --profile=release
+RUN dune build @pkg-install
 
 COPY . .
 RUN dune build --profile=release
